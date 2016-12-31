@@ -1,5 +1,6 @@
 import contextlib
 import json
+import os
 
 import time
 
@@ -25,5 +26,5 @@ def load_from_json(filePath):
         with open(filePath, 'r') as fd:
             data = json.load(fd)
     else:
-        data = None
+        data = []
     return data

@@ -15,7 +15,7 @@ SPIDER_MODULES = ['proxyCrawler.spiders']
 NEWSPIDER_MODULE = 'proxyCrawler.spiders'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-# USER_AGENT = 'proxyCrawler (+http://www.yourdomain.com)'
+# USER_AGENT = "Mozilla/5.0 (X11; CrOS i686 2268.111.0) AppleWebKit/536.11 (KHTML, like Gecko) Chrome/20.0.1132.57 Safari/536.11"
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
@@ -35,7 +35,7 @@ PROXY_FILE = 'proxy-file.txt'
 # CONCURRENT_REQUESTS_PER_IP = 16
 
 # Disable cookies (enabled by default)
-# COOKIES_ENABLED = False
+COOKIES_ENABLED = False
 
 # Disable Telnet Console (enabled by default)
 # TELNETCONSOLE_ENABLED = False
@@ -48,9 +48,9 @@ PROXY_FILE = 'proxy-file.txt'
 
 # Enable or disable spider middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
-# SPIDER_MIDDLEWARES = {
-#    'proxyCrawler.middlewares.MyCustomSpiderMiddleware': 543,
-# }
+SPIDER_MIDDLEWARES = {
+    'proxyCrawler.middlewares.ProxySpiderMiddleware': 543
+}
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
