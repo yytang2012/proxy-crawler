@@ -1,21 +1,26 @@
 # -*- coding: utf-8 -*-
+import os
+
 import scrapy
+from scrapy import Selector
+from scrapy.conf import settings
+
+from proxyCrawler.libs.misc import save_to_json
 
 
-class ToScrapeCSSSpider(scrapy.Spider):
-    name = "toscrape-css"
+class ProxySpider(scrapy.Spider):
+    name = "proxy-spider"
     start_urls = [
-        'http://quotes.toscrape.com/',
+        'https://incloak.com/proxy-list/?type=h#list',
     ]
 
-    def parse(self, response):
-        for quote in response.css("div.quote"):
-            yield {
-                'text': quote.css("span.text::text").extract_first(),
-                'author': quote.css("small.author::text").extract_first(),
-                'tags': quote.css("div.tags > a.tag::text").extract()
-            }
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        root_dir = os.path.expanduser(settings['ROOT_DIR'])
+        self.proxy_file = os.path.join(root_dir, settings['PROXY_FILE'])
 
-        next_page_url = response.css("li.next > a::attr(href)").extract_first()
-        if next_page_url is not None:
-            yield scrapy.Request(response.urljoin(next_page_url))
+    def parse(self, response):
+        sel = Selector(response)
+        proxy_info_selector = sel.xpath('//tbody/tr/td[@class="tdl"]/..')
+        proxy_info_list = [item.xpath('td/text()').extract() for item in proxy_info_selector]
+        save_to_json(proxy_info_list, self.proxy_file)

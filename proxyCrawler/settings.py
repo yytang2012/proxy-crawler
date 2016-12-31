@@ -18,7 +18,10 @@ NEWSPIDER_MODULE = 'proxyCrawler.spiders'
 # USER_AGENT = 'proxyCrawler (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False
+
+ROOT_DIR = '~/novels'
+PROXY_FILE = 'proxy-file.txt'
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 # CONCURRENT_REQUESTS = 32
